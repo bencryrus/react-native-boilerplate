@@ -12,13 +12,13 @@ npm-debug.*
 web-build/
 
 # Android and iOS folders
-ios/
-ios/*
-ios/main.jsbundle
-ios/**/*
-android/
-android/*
-android/**/*
+# ios/
+# ios/*
+# ios/main.jsbundle
+# ios/**/*
+# android/
+# android/*
+# android/**/*
 
 # macOS
 .DS_Store
