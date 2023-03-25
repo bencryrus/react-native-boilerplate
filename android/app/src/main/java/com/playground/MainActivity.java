@@ -1,4 +1,4 @@
-package com.managa;
+package com.playground;
 
 import android.os.Build;
 import android.os.Bundle;

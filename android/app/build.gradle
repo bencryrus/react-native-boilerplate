@@ -113,9 +113,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.managa"
+    namespace "com.playground"
     defaultConfig {
-        applicationId 'com.managa'
+        applicationId 'com.playground'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
