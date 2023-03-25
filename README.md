@@ -1,5 +1,5 @@
 ## 1. Quick start
-```console
+```bash
 mkdir <app_name>
 cd <app_name>
 git clone https://github.com/bencryrus/react-native-boilerplate .
