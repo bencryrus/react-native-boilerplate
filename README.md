@@ -1,13 +1,11 @@
-# React Native Cookbook
-
 ## 1. Quick start
 ```jsx
-# Local setup
 mkdir <app_name>
 cd <app_name>
 git clone https://github.com/bencryrus/react-native-boilerplate .
 npm install
 ```
+
 
 ## 2. App name
 [How to change the app name in react-native(in android and IOS):](https://dev.to/zenkoders/how-to-change-the-app-name-in-react-nativein-android-and-ios-573i)
@@ -20,13 +18,14 @@ npm install
 - Update `android/app/src/main/res/values/string.xml`
 	```jsx
 	<resources>
-	<string name="app_name">App name</string>
-	<string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
-	<string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+		<string name="app_name">App name</string>
+		<string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
+		<string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
 	</resources>
 	```
 - `cd android`
 - `./gradlew clean`
+
 
 ## 3. App link
 [How to change the "Bundle Identifier" within React Native?](https://stackoverflow.com/questions/36119754/how-to-change-the-bundle-identifier-within-react-native)
@@ -65,7 +64,7 @@ Update the following files
 ### Android
 - Copy the mipmap folders into `android/app/src/main/res`
 
-### . Splash screen
+### 5. Splash screen
 [How to add a splash screen to a React Native app - The easy way](https://dev.to/lloyds-digital/how-to-add-a-splash-screen-to-a-react-native-app-the-easy-way-3ego)
 ### iOS
 - Convert hex to iOS RGB [[link](https://www.uicolor.io/)]
@@ -139,29 +138,29 @@ Update the following files
 - Update `android/app/src/main/res/values/styles.xml`
 	```jsx
 	<resources>
-	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-		<item name="android:textColor">@android:color/black</item>
-		<item name="android:editTextStyle">@style/ResetEditText</item>
-		<item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
-		<item name="android:windowIsTranslucent">false</item>
-		<item name="android:windowBackground">@android:color/transparent</item>
-	</style>
-	<style name="ResetEditText" parent="@android:style/Widget.EditText">
-		<item name="android:padding">0dp</item>
-		<item name="android:textColorHint">#c8c8c8</item>
-		<item name="android:textColor">@android:color/black</item>
-	</style>
-	<!-- Add this -->
-	<style name="Theme.App.SplashScreen" parent="AppTheme">
-		<item name="android:windowBackground">#4361ee</item>
-	</style>
+		<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+			<item name="android:textColor">@android:color/black</item>
+			<item name="android:editTextStyle">@style/ResetEditText</item>
+			<item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+			<item name="android:windowIsTranslucent">false</item>
+			<item name="android:windowBackground">@android:color/transparent</item>
+		</style>
+		<style name="ResetEditText" parent="@android:style/Widget.EditText">
+			<item name="android:padding">0dp</item>
+			<item name="android:textColorHint">#c8c8c8</item>
+			<item name="android:textColor">@android:color/black</item>
+		</style>
+		<!-- Add this -->
+		<style name="Theme.App.SplashScreen" parent="AppTheme">
+			<item name="android:windowBackground">#4361ee</item>
+		</style>
 	</resources>
 	```
 - Update `android/app/src/main/res/values/colors.xml`
 	```jsx
 	<resources>
-	<color name="splashscreen_background">#4361ee</color>
-	<color name="ic_launcher_background">#4361ee</color>
+		<color name="splashscreen_background">#4361ee</color>
+		<color name="ic_launcher_background">#4361ee</color>
 	</resources>
 	```
 
