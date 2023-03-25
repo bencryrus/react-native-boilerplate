@@ -13,7 +13,13 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  BOOL success = [super application:application didFinishLaunchingWithOptions:launchOptions];
+  if (success) {
+    // Modify as needed to match the main color of your splash.
+    self.window.rootViewController.view.backgroundColor = [UIColor colorWithRed:0.26 green:0.38 blue:0.93 alpha:1.0];
+  }
+
+  return success;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

@@ -2,8 +2,8 @@ import React from 'react'
 import { StyleSheet, SafeAreaView, FlatList, Dimensions, Image, Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { View, Text, Button } from 'components'
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, useAnimatedProps } from 'react-native-reanimated'
+import { View, Text, Button, Spinner } from 'components'
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from 'react-native-reanimated'
 
 import { useSelector } from 'react-redux' 
 import { hextoRGB } from 'utils'
@@ -58,6 +58,7 @@ const OnboardingScreen = props => {
             alignItems: 'center',
             paddingHorizontal: 16,
             paddingVertical: 8,
+            marginBottom: Platform.OS === 'android' ? 8 : 0
         },
         Button: {
             backgroundColor: theme['--app-text-color'],
@@ -87,13 +88,22 @@ const OnboardingScreen = props => {
         }
     })
 
+    const [showSpinner, setSpinner] = React.useState(false)
+
     const onNext = () => {
         const isEnd = scrollIndex.value === (PAGES.length - 1)
         if(isEnd) {
-            storage.setItem('@id', 'test')
-            .then(res => {
-                props.navigation.navigate('MainScreen')
-            })
+            setSpinner(true)
+            setTimeout(() => {
+                storage.setItem('@id', 'test')
+                .then(res => {
+                    props.navigation.navigate('MainScreen')
+                })
+                .catch(err => {
+                    setSpinner(false)
+                })
+            }, 300)
+            
             
         } else {
             const index = scrollIndex.value
@@ -151,26 +161,6 @@ const OnboardingScreen = props => {
         return output
     }
 
-    const nextStyle = useAnimatedStyle(() => {
-        return {
-            opacity: scrollIndex.value === (PAGES.length - 1) ? 0 : 1,
-            width: scrollIndex.value === (PAGES.length - 1) ? 0 : 'auto',
-        }
-    })
-
-    const completeStyle = useAnimatedStyle(() => {
-        return {
-            opacity: scrollIndex.value === (PAGES.length - 1) ? 1 : 0,
-            width: scrollIndex.value === (PAGES.length - 1) ? 'auto' : 0,
-        }
-    })
-
-    const buttonProps = useAnimatedProps(() => {
-        return {
-            icon: scrollIndex.value === (PAGES.length - 1) ? 'check' : 'chevron-right'
-        }
-    })
-
     return (
         <SafeAreaView style={styles.Container}>
             <FlatList
@@ -178,7 +168,6 @@ const OnboardingScreen = props => {
                 data={PAGES}
                 renderItem={renderItem}
                 onScroll={onScroll}
-
                 horizontal={true}
                 getItemLayout={((data,index) => ({length: WIDTH, offset: WIDTH*index, index}))}
                 snapToInterval={WIDTH}
@@ -186,21 +175,10 @@ const OnboardingScreen = props => {
                 snapToAlignment='center'
                 decelerationRate='fast'
                 showsHorizontalScrollIndicator={false}
-            />
+                />
             <View styles={styles.Footer}>
-                <View styles={{flexDirection: 'row', borderWidth: 0, borderColor: 'yellow'}}>
-                    {renderIndicators()}
-                </View>
-
-                <View styles={{flexDirection:'row', marginBottom: Platform.OS === 'android' ? 8 : 0}}>
-                    <Animated.View style={nextStyle} key='next'>
-                        <Button icon={'chevron-right'} styles={styles.Button} onPress={onNext} size={48} iconSize={32}/>
-                    </Animated.View>
-
-                    <Animated.View style={completeStyle} key='submit'>
-                        <Button icon={'check'} styles={styles.Button} onPress={onNext} size={48} iconSize={24}/>
-                    </Animated.View>
-                </View>
+                <View styles={theme['row']}>{renderIndicators()}</View>
+            <Button icon={'chevron-right'} loading={showSpinner} styles={styles.Button} onPress={onNext} size={48} iconSize={32} spinnerColor={theme['--app-color']}/>
             </View>
         </SafeAreaView>
     )

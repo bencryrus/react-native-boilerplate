@@ -56,7 +56,8 @@ const LoadingScreen = props => {
 
     return (
         <View styles={styles.Container}>
-            {!userid && <Animated.View entering={FadeIn} exiting={FadeOut}>
+            {!userid && 
+            <Animated.View entering={FadeIn} exiting={FadeOut} style={{marginBottom: 8}}>
                 <Text styles={{color: theme['--app-text-color']}}>Getting things ready</Text>
             </Animated.View>}
 
