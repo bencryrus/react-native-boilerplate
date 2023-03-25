@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "managa",
-    "slug": "managa",
+    "name": "playground",
+    "slug": "playground",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,14 +16,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.managa"
+      "bundleIdentifier": "com.playground"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.managa"
+      "package": "com.playground"
     },
     "web": {
       "favicon": "./assets/favicon.png"
