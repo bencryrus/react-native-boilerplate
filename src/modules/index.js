@@ -1,3 +1,4 @@
-export { AboutModule } from './AboutModule'
 export { PlaygroundModule } from './PlaygroundModule'
-export { SettingsModule } from './SettingsModule'
+export { LoadingModule } from './LoadingModule'
+export { OnboardingModule } from './OnboardingModule'
+export { TestModule } from './TestModule'

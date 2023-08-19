@@ -1,5 +1,5 @@
 
-import { defaultColors, materialColors, dimensions, layouts } from '../resources'
+import { spacing, layouts, dark_theme, light_theme, default_colors, typography } from '../constants'
 
 export const hextoRGB = (value, opacity=1, shade=1, tint=1) => {
     if(value.length != 7){
@@ -99,24 +99,23 @@ export const getTextColor = (color, shade) => {
     }
 }
 
-export const getShadeColor = (color, shade=0.1, opacity=1) => {
-	const theme = colorTheme(color)
-	return theme === 'dark' ? hextoRGB(color,opacity,1,shade) : hextoRGB(color,opacity,shade,1)
+export const getShadeColor = (color, shade=1, opacity=1) => {
+	const isHex = color.includes('#')
+	if(isHex) {
+		return hextoRGB(color,opacity,1,1)
+	} else {
+		return color.replace('1.0',opacity)
+	}
+	// const theme = colorTheme(color)
+	// return theme === 'dark' ? hextoRGB(color,opacity,1,shade) : hextoRGB(color,opacity,shade,1)
 }
 
-export const createTheme = (theme) => {
+export const createTheme = (theme='dark') => {
 	const defaults = {
-		...dimensions,
+		...spacing,
 		...layouts,
-		...defaultColors,
-		...materialColors
+		...typography,
+		...default_colors,
 	}
-	let updatedTheme = {...defaults, ...theme}
-	const palette = createPalette({
-		bgColor: updatedTheme['--bg-color'],
-		primaryColor: updatedTheme['--primary-color'],
-		secondaryColor: updatedTheme['--secondary-color']
-	})
-
-	return {...updatedTheme, ...palette}
+	return theme === 'dark' ? {...defaults, ...dark_theme} : {...defaults, ...light_theme}
 }

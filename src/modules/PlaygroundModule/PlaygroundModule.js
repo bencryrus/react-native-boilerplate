@@ -1,28 +1,29 @@
 import React from 'react'
-import { StyleSheet, SafeAreaView, ScrollView, Dimensions } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigation } from '@react-navigation/native'
 
-import { View, Text, Button, Chip, Collapsible, Switch, FAB } from 'components' 
-import { RatePopup } from 'features'
+import { View, Text, Button, Chip, Collapsible, Switch, FAB, TestBlock } from 'components' 
+import { NavBar } from '../NavBar'
 
 import * as actions from 'store/actions'
-import { themes } from 'themes'
 import _ from 'lodash'
-import { materialColors, fonts, layouts } from 'resources'
+import { material_colors, accent_colors } from 'constants'
 
-const randomChips = _.sampleSize(Object.keys(materialColors),50)
+// const randomChips = _.sampleSize(Object.keys(material_colors),50)
+const randomChips = Object.keys(material_colors)
 
 const PlaygroundModule = props => {
-    // const theme = useSelector(state => state.db.theme)
     const theme = useSelector(state => state.db.theme)
     const preferences = useSelector(state => state.db.preferences)
     const [showChips, setChips] = React.useState(false)
-
     const dispatch = useDispatch()
+    const navigation = useNavigation()
     const styles = StyleSheet.create({
         Container: {
             flex: 1,
-            backgroundColor: theme['--bg-color']
+            backgroundColor: theme['--surface'],
+            padding: theme['--spacing']
         },
         Header: {
             flexDirection: 'row',
@@ -37,10 +38,19 @@ const PlaygroundModule = props => {
             padding: theme['--container-padding']
         },
         Button: {
-            backgroundColor: theme['--primary-color'],
-            color: theme['--primary-text-color'],
-            marginVertical: theme['--margin'],
-            // width: '30%'
+            backgroundColor: theme['--surface-container-high'],
+            color: theme['--on-surface'],
+            marginBottom: theme['--spacing'],
+            // borderWidth: 2,
+            // borderColor: theme['--outline-variant'],
+        },
+        Wrapper: {
+            ...theme.shadow,
+
+            backgroundColor: theme['--surface-container'], 
+            borderWidth: 0, 
+            borderColor: theme['--outline-variant'], 
+            width: 200, height: 200, borderRadius: 5
         }
     })
 
@@ -51,16 +61,11 @@ const PlaygroundModule = props => {
             <View styles={styles.Body}>
                 <Text styles={{fontSize: theme['--title-size']}}>PlaygroundModule</Text>
                 <Button label='Modal' styles={styles.Button} onPress={() => dispatch(actions.setModal(<View styles={{height: 100}}></View>))}/>
-                <Button label='Overlay' styles={styles.Button} onPress={() => dispatch(actions.setOverlay('ABOUT'))}/>
+                <Button label='Overlay' styles={styles.Button} onPress={() => navigation.navigate('TestModule')}/>
 
                 <View styles={theme.rowCenter}>
                     <Text styles={{marginRight: 8, textTransform: 'capitalize'}}>{preferences['theme']}</Text>
-                    <Button label='Random theme' icon='shuffle' styles={styles.Button} onPress={() => dispatch(actions.setPreferences({...preferences, theme: Object.keys(themes)[_.random(0, Object.keys(themes).length-1)]}))}/>
-                </View>
-                
-                <View styles={theme.rowCenter}>
-                    <Text styles={{marginRight: 8}}>{preferences['font']}</Text>
-                    <Button label='Random font' icon='shuffle' styles={styles.Button} onPress={() => dispatch(actions.setPreferences({...preferences, font: fonts[_.random(0, fonts.length-1)]}))}/>
+                    <Button label='Toggle theme' icon='shuffle' styles={styles.Button} onPress={() => dispatch(actions.setPreferences({...preferences, theme: preferences['theme'] === 'dark' ? 'light' : 'dark'}))}/>
                 </View>
                 
 
@@ -70,28 +75,31 @@ const PlaygroundModule = props => {
                         <ScrollView style={{maxHeight: 300}}>
                             <View styles={{flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'flex-end'}}>
                                 {randomChips.map(key => (
-                                    <Chip key={key} label={key} color={materialColors[key]}/>
+                                    <Chip key={key} label={key} color={material_colors[key]}/>
                                 ))}
                             </View>
                         </ScrollView>
                     </View>
                 </Collapsible>
 
-                <Switch 
-                    isActive={isActive} 
-                    onPress={() => setActive(!isActive)} 
-                    // color={materialColors[Object.keys(materialColors)[3]]}
-                    />
-                <Text>{`${isActive}`}</Text>
+                <View styles={{flexDirection:'row', alignItems: 'center'}}>
+                    <Text>{`${isActive}`}</Text>
+                    <Switch isActive={isActive} onPress={() => setActive(!isActive)}/>
+                </View>
+
+                <View styles={styles.Wrapper}>
+                    <TestBlock/>
+                </View>
 
                 <FAB 
-                    onPress={() => dispatch(actions.setOverlay('POPUP', { element: <RatePopup/> }))}
-                    label='Test' 
+                    // onPress={() => dispatch(actions.setOverlay('POPUP', { element: <RatePopup/> }))}
+                    // label='Save' 
+                    // icon='plus'
                     position='left'
                     offset={16}
-                    // color={materialColors['--red-400']}
                     />
             </View>
+            <NavBar/>
         </View>
     )
 }

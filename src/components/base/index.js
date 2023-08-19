@@ -1,0 +1,15 @@
+export { CustomText as Text } from './Text'
+export { CustomView as View } from './View'
+export { CustomButton as Button } from './Button'
+export { Chip } from './Chip'
+export { Check } from './Check'
+export { CustomCollapsible as Collapsible } from './Collapsible'
+export { FAB } from './FAB'
+export { CustomIcon as Icon } from './Icon'
+export { CustomModal as Modal } from './Modal'
+export { Spinner } from './Spinner'
+export { Switch } from './Switch'
+// export { Tabs } from './Tabs'
+// export { Labels } from './Labels'
+
+// View, Text, Button, Chip, Collapsible, Switch, FAB,

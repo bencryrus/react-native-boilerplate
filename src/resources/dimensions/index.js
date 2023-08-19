@@ -1,1 +1,0 @@
-export { dimensions } from './dimensions'

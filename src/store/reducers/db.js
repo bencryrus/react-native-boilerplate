@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import _ from 'lodash'
 import { MMKV } from 'react-native-mmkv'
-import { themes } from 'themes'
+import { themes } from 'constants'
 import { createTheme } from 'utils';
 
 const updateObject = (oldObject, updatedProperties) => {
@@ -20,7 +20,7 @@ const defaults = {
 
 const initialState = {
     status: [],
-    theme: createTheme({...defaults, ...themes['dark']}),
+    theme: createTheme('dark'),
     preferences: {
         theme: 'dark',
         font: 'Space Grotesk'

@@ -1,10 +1,19 @@
-export { Text } from './Text'
-export { View } from './View'
-export { Modal } from './Modal'
-export { Button } from './Button'
-export { Icon } from './Icon'
-export { Spinner } from './Spinner'
-export { Chip } from './Chip'
-export { Collapsible } from './Collapsible'
-export { Switch } from './Switch'
-export { FAB } from './FAB'
+export { 
+    Text,
+    View,
+    Button,
+    Check,
+    Chip,
+    Collapsible,
+    FAB,
+    Icon,
+    Modal,
+    Spinner,
+    Switch,
+    // Labels,
+    // Tabs
+} from './base'
+
+export {
+    TestBlock
+} from './blocks'

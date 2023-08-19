@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import * as actionTypes from '../actions/actionTypes';
 import { createTheme } from 'utils'
-import { themes } from 'themes'
+import { themes } from 'constants'
 
 export const loadData = ({id, userid, token, callback, onLoad}) => {
     return dispatch => {
@@ -17,7 +17,7 @@ export const setPreferences = (preferences) => {
         // [TODO] Commit preferences data (mmkv or online)
 
         // 2. Update theme
-        const theme = createTheme(themes[preferences['theme']])
+        const theme = createTheme(preferences['theme'])
         dispatch({ type: actionTypes.SET_THEME, theme })
     }
 }

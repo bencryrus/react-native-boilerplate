@@ -1,1 +1,0 @@
-export { default as RatePopup } from './RatePopup'
