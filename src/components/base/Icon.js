@@ -50,7 +50,8 @@ export const CustomIcon = props => {
             break
         default:
             content = <Icon name={icon} type={type}
-                            size={size} color={color ? color : theme['--on-surface']}/>
+                            size={size} color={color ? color : theme['--on-surface']}
+                            containerStyle={{ padding:0, margin: 0, width: 10 }}/>
     }
 
     if(onPress){

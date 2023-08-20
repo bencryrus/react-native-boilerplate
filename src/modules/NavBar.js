@@ -111,8 +111,8 @@ export const NavBar = (props) => {
 
 
     return (
-        <View styles={{borderWidth: 1, borderTopColor: theme['--outline-variant']}}>
-            <View styles={{flexDirection: 'row', height: 46}}>
+        <View>
+            <View styles={{flexDirection: 'row', height: 60, borderTopWidth: 1, borderTopColor: theme['--outline-variant']}}>
                 {Object.keys(options).map(option => {
                     return <Option
                             key={option}
@@ -124,9 +124,6 @@ export const NavBar = (props) => {
                             />
                     })}
             </View>
-            {/* <SafeAreaView/> */}
         </View>
     )
 }
-
-export default NavBar

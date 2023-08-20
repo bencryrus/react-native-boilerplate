@@ -3,10 +3,11 @@ import { StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 
-import { View, Text, Button, Check, Chip, Switch } from 'components' 
+import { View, Text, Button, Check, Chip } from 'components' 
+import { Header } from '../Header'
+import { NavBar } from '../NavBar'
 
 import _ from 'lodash'
-import * as actions from 'store/actions'
 
 const TestModule = props => {
     const dispatch = useDispatch()
@@ -16,27 +17,20 @@ const TestModule = props => {
     const styles = StyleSheet.create({
         Container: {
             padding: theme['--spacing'],
+            flex: 1,
+        },
+        Body: {
+            flex: 1,
         }
     })
     const [selected, setSelected] = React.useState(false)
     return (
         <View styles={styles.Container}>
-            <Button 
-                onPress={() => navigation.goBack()} 
-                icon='chevron-left' label='Back' 
-                justify='start'
-                styles={{backgroundColor: theme['--surface'], fontWeight: 'normal'}}
-                shadow={false}
-                />
-            
-            <Check onPress={() => setSelected(old => !old)} selected={selected} color={theme['--priority-high']} size={30} label={`${selected}`}/>
-            
-            <View styles={{flexWrap: 'wrap', flexDirection: 'row', borderWidth: 1, borderColor: 'red'}}>
-                <Chip label='Test' color={theme['--priority-high']} onRemove={() => {}}/>
-                <Chip label='Test' color={theme['--priority-high']} onRemove={() => {}}/>
-                <Chip label='Test' color={theme['--amber-100']} onRemove={() => {}}/>
+            <Header subtitle='Test' trailing={<Button icon='dots-horizontal'/>}/>
+            <View styles={styles.Body}>
+                <Text>TestModule</Text>
             </View>
-            
+            <NavBar/>
         </View>
     )
 }
