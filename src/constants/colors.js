@@ -91,7 +91,7 @@ export const accent_colors = {
     '--priority-high': 'rgba(213, 0, 0, 1.0)',
     '--priority-high-container': 'rgba(213, 0, 0, 0.2)',
     '--priority-medium': 'rgba(255, 214, 0, 1.0)',
-'--priority-medium-container': 'rgba(255, 214, 0, 0.2)',
+    '--priority-medium-container': 'rgba(255, 214, 0, 0.2)',
     '--priority-low': 'rgba(41, 121, 255, 1.0)',
     '--priority-low-container': 'rgba(41, 121, 255, 0.2)',
     '--error': 'rgba(255, 0, 51, 1.0)',

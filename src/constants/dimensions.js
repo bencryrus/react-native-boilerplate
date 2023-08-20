@@ -11,7 +11,9 @@ export const spacing = {
     // '--container-padding': 20,
     '--spacing': 14,
     '--spacing-small': 8,
-    '--spacing-large': 20
+    '--spacing-smallest': 4,
+    '--spacing-large': 20,
+    '--border-radius': 10
 }
 
 export const typography = {

@@ -8,12 +8,10 @@ import { Icon } from "@rneui/themed";
 export const FAB = props => {
     const {
         position='right',
-        offset=8,
+        offset=0,
         label,
-        icon='plus',
-        size=20,
+        icon='plus-thick',
         onPress,
-        color
     } = props;
     const theme = useSelector(state => state.db.theme)
     const primaryColor = theme['--primary']
@@ -22,7 +20,7 @@ export const FAB = props => {
     const styles = StyleSheet.create({
         Container: {
             position: 'absolute',
-            bottom: offset,
+            bottom: theme['--spacing'],
             right: position === 'right' ? offset : null,
             left: position === 'right' ? null : offset
         },
@@ -33,15 +31,17 @@ export const FAB = props => {
             borderRadius: 10,
             flexDirection: 'row',
             alignItems: 'center',
-            ...theme.shadow
+            justifyContent: 'center',
+            ...theme['--shadow']
         },
         Label: {
             fontSize: theme['--title-medium-fontSize'],
+            lineHeight: theme['--title-medium-lineHeight'],
             color: textColor,
             textTransform: 'capitalize',
             marginHorizontal: 4,
             fontWeight: 'bold',
-            fontFamily: theme['--title-medium-font']
+            fontFamily: theme['--title-large-font']
         },
     })
 
@@ -54,11 +54,10 @@ export const FAB = props => {
             <Ripple 
                 style={styles.Button} 
                 onPress={onSelect}
-                rippleColor={theme['--surface']}
-                rippleCentered={true}
-                rippleDuration={400}
+                rippleColor={theme['--primary-container']}
+                rippleDuration={300}
                 >
-                <Icon name={icon} type={'material-community'} size={theme['--headline-medium-fontSize']} color={textColor}/>
+                <Icon name={icon} type={'material-community'} size={24} color={theme['--on-primary-container']}/>
                 {label && <Text style={styles.Label}>{label}</Text>}
             </Ripple>
         </View>

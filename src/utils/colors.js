@@ -1,5 +1,5 @@
 
-import { spacing, layouts, dark_theme, light_theme, default_colors, typography } from '../constants'
+import { spacing, layouts, dark_theme, light_theme, default_colors, typography, material_colors, on_material_colors } from '../constants'
 
 export const hextoRGB = (value, opacity=1, shade=1, tint=1) => {
     if(value.length != 7){
@@ -116,6 +116,8 @@ export const createTheme = (theme='dark') => {
 		...layouts,
 		...typography,
 		...default_colors,
+		...material_colors,
+		on_material_colors
 	}
 	return theme === 'dark' ? {...defaults, ...dark_theme} : {...defaults, ...light_theme}
 }

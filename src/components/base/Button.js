@@ -6,35 +6,49 @@ import Ripple from 'react-native-material-ripple';
 import { Icon } from "@rneui/themed";
 import { ActivityIndicator } from 'react-native-paper';
 
+const justifyRef = {
+    center: 'center',
+    start: 'flex-start',
+    end: 'flex-end'
+}
+
 export const CustomButton = (props) => {
     const {
         label,
         icon,
-        loading = false,
+        loading=false,
         onPress=() => {},
         onLongPress,
         spinnerSize=16,
-        spinnerColor
+        spinnerColor,
+        disabled=false,
+        styles={},
+        justify='center',
+        shadow=true
     } = props
     const theme = useSelector(state => state.db.theme)
-    const styles = StyleSheet.create({
+    const _styles = StyleSheet.create({
         Container: {
             backgroundColor: theme['--primary'],
-            borderRadius: 10,
+            borderRadius: theme['--border-radius'],
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: justifyRef[justify] || 'center',
             paddingVertical: theme['--spacing-small'],
             paddingHorizontal: theme['--spacing'],
-            ...props.styles,
+            flexDirection: 'row',
+            opacity: disabled ? 0.5 : 1,
+            ...styles,
         },
         Label: {
-            color: props.styles && props.styles.color ? props.styles.color : theme['--on-primary'],
-            fontSize: props.styles && props.styles.fontSize ? props.styles.fontSize : theme['--body-medium-fontSize'],
-            marginRight: icon ? 4 : 0
+            color: styles.color || theme['--on-primary'],
+            fontSize: styles.fontSize || theme['--label-large-fontSize'],
+            lineHeight: theme['--label-large-lineHeight'],
+            marginRight: icon ? theme['--spacing-smallest'] : 0,
+            // fontWeight: styles.fontWeight || 'bold'
         },
         Icon: {
-            color: props.styles && props.styles.color ? props.styles.color : theme['--on-primary'],
-            size: props.styles && props.styles.fontSize ? props.styles.fontSize : theme['--body-medium-fontSize'],
+            color: styles.color || theme['--on-primary'],
+            size: styles.fontSize || theme['--label-large-fontSize'],
         }
     });
 
@@ -42,19 +56,18 @@ export const CustomButton = (props) => {
         <Ripple
             onPress={onPress}
             onLongPress={onLongPress}
-            rippleColor={theme['--surface']}
+            rippleColor={theme['--on-surface']}
             rippleDuration={300}
-            style={styles.Container}
+            style={[_styles.Container, shadow ? theme['--shadow'] : null]}
+            rippleContainerBorderRadius={theme['--border-radius']}
+            disabled={disabled}
             >
-            <View style={{flexDirection: 'row', alignItems: 'center', borderWidth: 0}}>
-                <View style={{marginRight: !label ? 0 : icon ? theme['--spacing-small'] : loading ? theme['--spacing-small'] : 0}}>
-                    {loading ? <ActivityIndicator animating={true} color={spinnerColor || theme['--on-primary']} size={spinnerSize}/>
-                    : icon && typeof icon === 'string' ? <Icon name={icon} type={'material-community'} size={styles.Icon.size} color={styles.Icon.color}/> 
-                    : icon ? icon
-                    : null}
-                </View>
-                {label && <Text style={styles.Label}>{label}</Text>}
+            <View style={{marginRight: icon || loading ? theme['--spacing-small'] : 0}}>
+                {loading ? <ActivityIndicator animating={true} color={spinnerColor || theme['--on-primary']} size={spinnerSize}/>
+                : icon ? <Icon name={icon} type={'material-community'} size={_styles.Icon.size} color={_styles.Icon.color}/> 
+                : null}
             </View>
+            <Text style={_styles.Label}>{label}</Text>
         </Ripple>
     )
 }

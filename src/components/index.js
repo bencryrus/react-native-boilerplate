@@ -10,8 +10,10 @@ export {
     Modal,
     Spinner,
     Switch,
-    // Labels,
-    // Tabs
+    Tabs,
+    TextInput,
+    ListTile,
+    Labels,
 } from './base'
 
 export {

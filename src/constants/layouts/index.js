@@ -1,1 +1,0 @@
-export { layouts } from './layouts'

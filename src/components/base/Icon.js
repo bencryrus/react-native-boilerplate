@@ -12,7 +12,7 @@ export const CustomIcon = props => {
         icon,
         styles,
         color,
-        size=16,
+        size=14,
         iconType='native',
         onPress,
         resizeMode='contain',
@@ -26,8 +26,6 @@ export const CustomIcon = props => {
         },
         Emoji: {
             fontSize: size*0.8,
-            // width: size*1.2,
-            // height: size*1.2
         }
     })
 
@@ -52,8 +50,7 @@ export const CustomIcon = props => {
             break
         default:
             content = <Icon name={icon} type={type}
-                            size={size} color={color ? color : theme['--on-surface']}
-                            containerStyle={{ padding:0, margin: 0, width: 16 }}/>
+                            size={size} color={color ? color : theme['--on-surface']}/>
     }
 
     if(onPress){

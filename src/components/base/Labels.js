@@ -1,10 +1,8 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import uuid from 'react-native-uuid';
+import { StyleSheet, View, Text } from 'react-native'
+import { Icon } from "@rneui/themed";
 
-import { Text, View, Icon } from 'components'
 import { useSelector } from 'react-redux';
-
 
 export const Labels = props => {
     const {
@@ -13,38 +11,44 @@ export const Labels = props => {
     const theme = useSelector(state => state.db.theme)
     const styles = StyleSheet.create({
         Container: {
-            ...theme['rowHCenter'],
+            flexDirection: 'row',
             flexWrap: 'wrap', 
-            borderWidth: 0,
-            borderColor: 'red',
             ...props.styles
         },
         Label: {
-            color: theme['--text-color-300'],
-            fontSize: theme['--subtitle-size']
+            color: theme['--on-surface-variant'],
+            color: theme['--on-surface-variant'],
+            fontSize: theme['--body-small-fontSize'],
+            lineHeight: theme['--body-small-lineHeight'],
+            fontFamily: theme['--body-small-font'],
         }
     })
 
-    const getBlocks = () => {
-        const values = labels.filter(x => x && x['value'])
-        return values.map(({value, icon, color=theme['--text-color-300']}, index) => {
-            if(value){
+    return (
+        <View style={styles.Container}>
+            {labels.map((value,index) => {
+                const { label, icon, color } = value
                 return (
-                    <View key={`${value}_${index}`} styles={[theme['rowHCenter']]}>
-                        {icon && <Icon icon={icon} color={color || theme['--text-color-300']} styles={{marginRight: theme['--padding']/4}}/>}
-                        <Text styles={{...styles.Label, color}}>{`${value}`}</Text>
-                        {index !== values.length - 1 && <Icon icon='circle-small' color={theme['--text-color-300']} styles={{marginHorizontal: theme['--padding']/8}}/>}
+                    <View key={`Label_${label}_${icon}_${index}`} style={{flexDirection: 'row', alignItems: 'center'}}>
+                        {icon && 
+                        <Icon name={icon} 
+                            type={'material-community'}
+                            size={theme['--body-small-lineHeight']} 
+                            color={color || theme['--on-surface-variant']}
+                            containerStyle={{ marginRight: theme['--spacing-smallest'] }}
+                            />}
+                            
+                        <Text style={{...styles.Label, color: color || theme['--on-surface-variant']}}>{label}</Text>
+
+                        {labels.length > 1 && index !== labels.length - 1 && 
+                        <Icon name={'circle-small'} 
+                            type={'material-community'}
+                            size={theme['--body-small-lineHeight']} 
+                            color={theme['--on-surface-variant']}
+                            />}
                     </View>
                 )
-            }
-        })
-    }
-
-    const blocks = getBlocks()
-
-    return (
-        <View styles={styles.Container}>
-            {blocks}
+            })}
         </View>
     )
 }

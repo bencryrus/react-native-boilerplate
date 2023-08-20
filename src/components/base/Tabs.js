@@ -1,104 +1,91 @@
 import React from 'react'
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
+import { useSelector } from 'react-redux'
+import Ripple from 'react-native-material-ripple';
+import { Tab } from "@rneui/base";
 
-import { Text, View } from 'components'
-import Animated, { useAnimatedStyle, withTiming, Easing, useSharedValue } from 'react-native-reanimated'
-
-import { useSelector } from 'react-redux' 
-
-const window = Dimensions.get('window')
+import Animated, { useAnimatedStyle, withTiming, Easing, useSharedValue, useAnimatedRef, measure, useDerivedValue, runOnJS } from 'react-native-reanimated'
 
 export const Tabs = props => {
     const {
         options=[],
-        initial=0,
-        onSelect,
-        width=window['width'],
-    } = props;
-    const n = options.length
+        onPress,
+        selected,
+        divider=false
+    } = props
     const theme = useSelector(state => state.db.theme)
     const styles = StyleSheet.create({
         Container: {
+            width: '100%',
             flexDirection: 'row',
-            marginTop: 8,
-            marginBottom: 8,
-            borderBottomWidth: 0,
-            borderColor: theme['--outline-variant'],
-            backgroundColor: theme['--surface'],
-            borderRadius: 5,
-            // alignItems: 'center',
-            // justifyContent: 'center'
+            borderWidth: 0,
+            borderColor: 'red',
         },
-        Wrapper: {
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 12,
-            borderRadius: 5,
-        },
-        SelectedWrapper: {
-            backgroundColor: theme['--primary']
-        },
-        Title: {
-            fontWeight: 'bold',
-            color: theme['--on-surface'],
-            textTransform: 'capitalize'
-        },
-        UnfocusedTitle: {
-            color: theme['--on-surface'],
-            textTransform: 'capitalize'
-        },
-        Subtitle: {
-            color: theme['--on-surface'],
-            fontSize: 12
-        },
-        Indicator: {
-            width: width/n,
-            padding: 8,
-            borderRadius: 5,
-            backgroundColor: theme['--primary'],
+        Divider: {
+            width: '100%',
+            borderBottomWidth: 1,
+            borderBottomColor: theme['--outline-variant'],
             position: 'absolute',
-            height: '100%'
+            bottom: 1
         }
     })
 
-    const tab = useSharedValue(initial)
-
-    const onSelectTab = (newTab) => {
+    const tab = useSharedValue(options[0]['value'])
+    const onPressHandler = (newTab) => {
         tab.value = newTab
-        onSelect && onSelect(options[newTab])
+        onPress && onPress(newTab)
     }
 
-    const getBlocks = () => {
-        return options.map((option, index) => {
-            const isSelected = index === tab
-
-            return (
-                <View key={`tab_${index}`} styles={[styles.Wrapper]} 
-                    containerStyle={{flex: 0, width: width/n, borderWidth: 0}} 
-                    onPress={() => onSelectTab(index)}>
-                    <Text styles={isSelected ? styles.Title : styles.UnfocusedTitle} numberOfLines={1}>{option['label']}</Text>
-                </View>
-            )
+    const animationConfig = { duration: 300, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
+    const textStyles = options.map((option,index) => {
+        return useAnimatedStyle(() => {
+            return {
+                fontSize: theme['--body-medium-fontSize'],
+                lineHeight: theme['--body-medium-lineHeight'],
+                fontFamily: theme['--body-medium-font'],
+                fontWeight: option.value === tab.value ? 'bold' : 'normal',
+                color: withTiming(
+                    option.value === tab.value ? theme['--on-surface'] : theme['--on-surface-variant'],
+                    animationConfig
+                ),
+            }
         })
-    }
+    })
 
-    const indicatorStyle = useAnimatedStyle(() => {
-        return {
-            // position: 'absolute',
-            // left: 0,
-            transform: [{
-                translateX: withTiming(
-                    tab.value === 0 ? 0 : (width/n)*tab.value,
-                    { duration: 300, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
+    const wrapperStyles = options.map((option, index) => {
+        return useAnimatedStyle(() => {
+            return {
+                paddingHorizontal: theme['--spacing'],
+                paddingVertical: theme['--spacing-small'],
+                borderBottomWidth: 2,
+                borderBottomColor: withTiming(
+                    option.value === tab.value ? theme['--primary'] : 'transparent',
+                    animationConfig
                 )
-            }]
-        }
+            }
+        })
     })
 
     return (
-        <View styles={styles.Container}>
-            <Animated.View style={[styles.Indicator, indicatorStyle]}/>
-            {getBlocks()}
+        <View style={{width: '100%'}}>
+            <View style={styles.Container}>
+                {options.map((option, index) => {
+                    const { label, value } = option
+                    const isSelected = selected === value
+                    return (
+                        <Ripple key={value} 
+                            rippleColor={theme['--on-surface']}
+                            onPress={() => onPressHandler(value)}>
+                            <Animated.View style={wrapperStyles[index]}>
+                                <Animated.Text style={textStyles[index]}>{label}</Animated.Text>
+                            </Animated.View>
+                            
+                        </Ripple>
+                    )
+                })}
+            </View>
+            {divider && <View style={styles.Divider}/>}
         </View>
     )
 }
+

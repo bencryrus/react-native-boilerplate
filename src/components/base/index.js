@@ -9,7 +9,9 @@ export { CustomIcon as Icon } from './Icon'
 export { CustomModal as Modal } from './Modal'
 export { Spinner } from './Spinner'
 export { Switch } from './Switch'
-// export { Tabs } from './Tabs'
-// export { Labels } from './Labels'
+export { Tabs } from './Tabs'
+export { CustomTextInput as TextInput } from './TextInput'
+export { ListTile } from './ListTile'
+export { Labels } from './Labels'
 
 // View, Text, Button, Chip, Collapsible, Switch, FAB,

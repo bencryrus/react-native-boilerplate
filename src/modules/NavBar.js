@@ -21,12 +21,12 @@ const Option = props => {
     const theme = useSelector(state => state.db.theme)
     const styles = StyleSheet.create({
         Container: {
-            borderWidth: 0,
+            borderTopWidth: 0,
             borderColor: 'red',
             justifyContent: 'center',
             alignItems: 'center',
             flex: 1,
-            backgroundColor: theme['--surface']
+            backgroundColor: theme['--surface'],
         },
         Label: {
             textTransform: 'uppercase',
@@ -111,7 +111,7 @@ export const NavBar = (props) => {
 
 
     return (
-        <View styles={{marginTop: theme['--spacing']}}>
+        <View styles={{borderWidth: 1, borderTopColor: theme['--outline-variant']}}>
             <View styles={{flexDirection: 'row', height: 46}}>
                 {Object.keys(options).map(option => {
                     return <Option
@@ -124,7 +124,7 @@ export const NavBar = (props) => {
                             />
                     })}
             </View>
-            <SafeAreaView/>
+            {/* <SafeAreaView/> */}
         </View>
     )
 }

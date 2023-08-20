@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux';
 
 import Animated, { useAnimatedStyle, withTiming, Easing, useSharedValue } from 'react-native-reanimated'
@@ -63,10 +63,12 @@ export const Switch = props => {
     }
 
     return (
-        <Ripple onPress={onSelect} rippleContainerBorderRadius={50}>
-            <Animated.View style={containerStyle}>
-                <Animated.View style={indicatorStyle}/>
-            </Animated.View>
-        </Ripple>
+        <View style={{flexWrap: 'wrap'}}>
+            <Ripple onPress={onSelect} rippleContainerBorderRadius={50}>
+                <Animated.View style={containerStyle}>
+                    <Animated.View style={indicatorStyle}/>
+                </Animated.View>
+            </Ripple>
+        </View>
     )
 }

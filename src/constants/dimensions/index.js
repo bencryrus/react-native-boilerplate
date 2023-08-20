@@ -1,1 +1,0 @@
-export { spacing, typography } from './dimensions'

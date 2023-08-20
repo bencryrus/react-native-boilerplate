@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 
-import { View, Text, Button, Chip, Collapsible, Switch, FAB, TestBlock } from 'components' 
+import { View, Text, Button, Chip, Collapsible, Switch, FAB, Check, Tabs, TextInput, ListTile, Labels } from 'components' 
 import { NavBar } from '../NavBar'
 
 import * as actions from 'store/actions'
@@ -17,6 +17,8 @@ const PlaygroundModule = props => {
     const theme = useSelector(state => state.db.theme)
     const preferences = useSelector(state => state.db.preferences)
     const [showChips, setChips] = React.useState(false)
+    const [selected, setSelected] = React.useState(false)
+    const [tab, setTab] = React.useState('group')
     const dispatch = useDispatch()
     const navigation = useNavigation()
     const styles = StyleSheet.create({
@@ -33,7 +35,7 @@ const PlaygroundModule = props => {
             borderWidth: 0,
             borderColor: 'red',
             flex: 1,
-            alignItems: 'flex-end',
+            alignItems: 'flex-start',
             justifyContent: 'flex-end',
             padding: theme['--container-padding']
         },
@@ -87,19 +89,52 @@ const PlaygroundModule = props => {
                     <Switch isActive={isActive} onPress={() => setActive(!isActive)}/>
                 </View>
 
-                <View styles={styles.Wrapper}>
-                    <TestBlock/>
+                <Check onPress={() => setSelected(old => !old)} selected={selected} color={theme['--priority-high']} size={30} label={`${selected}`}/>
+            
+                <View styles={{flexWrap: 'wrap', flexDirection: 'row', borderWidth: 1, borderColor: 'red'}}>
+                    <Chip label='Test' color={theme['--priority-high']} onRemove={() => {}}/>
+                    <Chip label='Test' color={theme['--priority-high']} onRemove={() => {}}/>
+                    <Chip label='Test' color={theme['--amber-100']} onRemove={() => {}}/>
                 </View>
 
-                <FAB 
-                    // onPress={() => dispatch(actions.setOverlay('POPUP', { element: <RatePopup/> }))}
-                    // label='Save' 
-                    // icon='plus'
-                    position='left'
-                    offset={16}
+                <Text>{tab}</Text>
+                <Tabs selected={tab} divider
+                    onPress={(newTab) => setTab(newTab)}
+                    options={[
+                        {label: 'Group', value: 'group'},
+                        {label: 'Filter', value: 'filter'},
+                        {label: 'Sort', value: 'sort'},
+                        {label: 'Display', value: 'display'},
+                    ]}/>
+                
+
+                <TextInput/>
+                <ListTile label='Option 1' subtitle='Something here' 
+                    // trailing='chevron-right'
+                    // onPress={() => setActive(!isActive)}
+                    isActive={isActive}
+                    trailing={<Switch isActive={isActive} onPress={() => setActive(!isActive)}/>}
+                    // disabled
                     />
+                <ListTile label='Option 1' subtitle='Something here' 
+                    trailing='chevron-right'
+                    onPress={() => setActive(!isActive)}
+                    />
+                
+                <Labels labels={[
+                    {label: 'Another'},
+                    {label: 'Another'},
+                    {label: 'Another'},
+                    {label: 'Another'},
+                    {label: 'Another'},
+                    {label: 'Another'},
+                    {label: 'Another'},
+                    {label: 'Another'},
+                    {label: 'Another'},
+                ]}/>
+                {/* <FAB position='left' label='Add'/> */}
             </View>
-            <NavBar/>
+            {/* <NavBar/> */}
         </View>
     )
 }
