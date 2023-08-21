@@ -23,19 +23,18 @@ export const CustomButton = (props) => {
         spinnerColor,
         disabled=false,
         styles={},
-        justify='start',
-        shadow=false
+        justify='center',
+        shadow=true
     } = props
     const theme = useSelector(state => state.db.theme)
-    const iconOnly = icon && !label
     const _styles = StyleSheet.create({
         Container: {
-            backgroundColor: theme['--surface'],
+            backgroundColor: theme['--primary'],
             borderRadius: theme['--border-radius'],
             alignItems: 'center',
             justifyContent: justifyRef[justify] || 'center',
             paddingVertical: theme['--spacing-small'],
-            paddingHorizontal: iconOnly ? theme['--spacing-small'] : theme['--spacing-small'],
+            paddingHorizontal: theme['--spacing'],
             flexDirection: 'row',
             opacity: disabled ? 0.5 : 1,
             ...styles,
@@ -44,8 +43,8 @@ export const CustomButton = (props) => {
             color: styles.color || theme['--on-primary'],
             fontSize: styles.fontSize || theme['--label-large-fontSize'],
             lineHeight: theme['--label-large-lineHeight'],
-            marginRight: icon && !iconOnly ? theme['--spacing-smallest'] : 0,
-            fontWeight: styles.fontWeight || 'normal'
+            marginRight: icon ? theme['--spacing-smallest'] : 0,
+            // fontWeight: styles.fontWeight || 'bold'
         },
         Icon: {
             color: styles.color || theme['--on-primary'],
@@ -54,23 +53,21 @@ export const CustomButton = (props) => {
     });
 
     return (
-        <View style={{flexWrap: 'wrap'}}>
-            <Ripple
-                onPress={onPress}
-                onLongPress={onLongPress}
-                rippleColor={theme['--on-surface']}
-                rippleDuration={300}
-                style={[_styles.Container, shadow ? theme['--shadow'] : null]}
-                rippleContainerBorderRadius={theme['--border-radius']}
-                disabled={disabled}
-                >
-                <View style={{marginRight: (icon && !iconOnly) || loading ? theme['--spacing-smallest'] : 0}}>
-                    {loading ? <ActivityIndicator animating={true} color={spinnerColor || theme['--on-primary']} size={spinnerSize}/>
-                    : icon ? <Icon name={icon} type={'material-community'} size={label ? theme['--body-medium-fontSize'] : 20} color={_styles.Icon.color}/> 
-                    : null}
-                </View>
-                <Text style={_styles.Label}>{label}</Text>
-            </Ripple>
-        </View>
+        <Ripple
+            onPress={onPress}
+            onLongPress={onLongPress}
+            rippleColor={theme['--on-surface']}
+            rippleDuration={300}
+            style={[_styles.Container, shadow ? theme['--shadow'] : null]}
+            rippleContainerBorderRadius={theme['--border-radius']}
+            disabled={disabled}
+            >
+            <View style={{marginRight: icon || loading ? theme['--spacing-small'] : 0}}>
+                {loading ? <ActivityIndicator animating={true} color={spinnerColor || theme['--on-primary']} size={spinnerSize}/>
+                : icon ? <Icon name={icon} type={'material-community'} size={_styles.Icon.size} color={_styles.Icon.color}/> 
+                : null}
+            </View>
+            <Text style={_styles.Label}>{label}</Text>
+        </Ripple>
     )
 }

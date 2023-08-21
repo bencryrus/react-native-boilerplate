@@ -48,16 +48,15 @@ const Nav = props => {
 						contentStyle: { 
 							backgroundColor: theme['--surface'], 
 							paddingTop: insets.top, 
-							// paddingBottom: insets.bottom
+							paddingBottom: insets.bottom
 						},
-						animation: 'none',
-						gestureEnabled: true,
-						gestureDirection: 'horizontal'
+						animation: 'slide_from_right',
+						gestureEnabled: false
 					}}
 					>
-					<Stack.Screen name="LoadingModule" component={LoadingModule} options={{gestureEnabled: false, animation: 'fade', contentStyle: {paddingBottom: 0}}}/>
-					<Stack.Screen name="OnboardingModule" component={OnboardingModule} options={{gestureEnabled: false, animation: 'fade', contentStyle: {paddingBottom: 0}}}/>
-					<Stack.Screen name="PlaygroundModule" component={PlaygroundModule} options={{gestureEnabled: false}}/>
+					<Stack.Screen name="LoadingModule" component={LoadingModule} options={{animation: 'fade', contentStyle: {paddingBottom: 0}}}/>
+					<Stack.Screen name="OnboardingModule" component={OnboardingModule} options={{animation: 'fade', contentStyle: {paddingBottom: 0}}}/>
+					<Stack.Screen name="PlaygroundModule" component={PlaygroundModule}/>
 					<Stack.Screen name="TestModule" component={TestModule}/>
 
 				</Stack.Navigator>
