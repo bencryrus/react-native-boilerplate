@@ -86,9 +86,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.boilerplate"
+    namespace "com.boilerplate.benjamin.ngwx"
     defaultConfig {
-        applicationId "com.boilerplate"
+        applicationId "com.boilerplate.benjamin.ngwx"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

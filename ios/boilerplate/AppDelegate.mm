@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import <Firebase.h>
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTLinkingManager.h>
@@ -8,12 +9,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   self.moduleName = @"main";
-
+  [FIRApp configure];
+  
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
-
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+  BOOL success = [super application:application didFinishLaunchingWithOptions:launchOptions];
+  if (success) {
+    // Modify as needed to match the main color of your splash.
+    self.window.rootViewController.view.backgroundColor = [UIColor colorWithRed:0.00 green:0.40 blue:1.00 alpha:1.0];
+  }
+  return success;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

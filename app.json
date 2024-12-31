@@ -2,6 +2,29 @@
   "expo": {
     "name": "boilerplate",
     "slug": "boilerplate",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "owner": "benjamin.ngwx",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.boilerplate.benjamin.ngwx",
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7eb8960f-50ad-4e1d-8d3a-453124431f2f"
+      }
+    },
+    "plugins": [
+      "@react-native-google-signin/google-signin",
+      [
+        "expo-notifications",
+        {
+          "sounds": [
+            "./assets/sounds/bell.wav"
+          ]
+        }
+      ]
+    ]
   }
 }

@@ -1,4 +1,4 @@
-package com.boilerplate
+package com.boilerplate.benjamin.ngwx
 
 import android.app.Application
 import android.content.res.Configuration
